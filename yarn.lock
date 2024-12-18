@@ -12,9 +12,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@chealt/attilajs@workspace:.":
+"@chealt/attilajs@workspace:packages/attilajs":
   version: 0.0.0-use.local
-  resolution: "@chealt/attilajs@workspace:."
+  resolution: "@chealt/attilajs@workspace:packages/attilajs"
   dependencies:
     "@swc/cli": "npm:^0.5.2"
     "@swc/core": "npm:^1.10.1"
@@ -1236,6 +1236,12 @@ __metadata:
   checksum: 10c0/c19ef26e4e188f408922c46f7ff480d38e8dfc55d448310dfb518736b23ed2c4f547fb64a6ed5bdba92cd7e7ddc889d36ff78f794816d5e71498d645ef476107
   languageName: node
   linkType: hard
+
+"root-workspace-0b6124@workspace:.":
+  version: 0.0.0-use.local
+  resolution: "root-workspace-0b6124@workspace:."
+  languageName: unknown
+  linkType: soft
 
 "run-parallel@npm:^1.1.9":
   version: 1.2.0

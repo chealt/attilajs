@@ -1,20 +1,19 @@
 {
-  "name": "@chealt/attilajs",
+  "private": true,
   "packageManager": "yarn@4.5.3",
   "type": "module",
-  "version": "0.0.0",
   "engines": {
     "node": ">=22"
   },
-  "scripts": {
-    "build": "swc src/index.js -o dist/index.js",
-    "start": "node ./src/serve.js"
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ]
   },
-  "dependencies": {
-    "@swc/cli": "^0.5.2",
-    "@swc/core": "^1.10.1",
-    "chokidar": "^4.0.2",
-    "polka": "^0.5.2",
-    "sirv": "^3.0.0"
-  }
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chealt/attilajs.git"
+  },
+  "homepage": "https://github.com/chealt/attilajs"
 }
