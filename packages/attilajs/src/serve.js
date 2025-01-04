@@ -5,6 +5,10 @@ import { exec } from 'child_process';
 
 const staticMiddleware = sirv('dist');
 
+chokidar.watch('src').on('all', () => {
+  exec('yarn build');
+});
+
 const port = 9876;
 polka()
   .use(staticMiddleware)
@@ -12,6 +16,3 @@ polka()
     console.log(`> Running on localhost:${port}`);
   });
 
-chokidar.watch('src/index.js').on('all', () => {
-  exec('yarn build');
-});
