@@ -3,7 +3,7 @@ import polka from 'polka';
 import sirv from 'sirv';
 import { exec } from 'child_process';
 
-const staticMiddleware = sirv('dist');
+const staticMiddleware = sirv('dist', { dev: true });
 
 chokidar.watch('src').on('all', () => {
   exec('yarn build');
@@ -12,7 +12,11 @@ chokidar.watch('src').on('all', () => {
 const port = 9876;
 polka()
   .use(staticMiddleware)
-  .listen(port, () => {
+  .listen(port, (error) => {
+    if (error) {
+      console.error(error);
+    }
+
     console.log(`> Running on localhost:${port}`);
   });
 
