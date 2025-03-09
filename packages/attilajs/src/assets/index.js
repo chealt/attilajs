@@ -2,6 +2,8 @@ const tag = 'attila-js';
 const mainButtonID = 'main-button';
 const closeButtonID = 'close-button';
 const dialogID = 'main-dialog';
+const controlsClassName = 'controls';
+const contentClassName = 'content';
 
 const css = `
 :host {
@@ -68,13 +70,23 @@ button:focus:not(:active):not(:hover) {
 
 #${closeButtonID} {
   text-transform: uppercase;
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
+}
+
+.${controlsClassName} {
+  display: flex;
+  align-items: center;
+}
+
+.${controlsClassName} > * {
+  flex-grow: 1;
+}
+
+.${contentClassName} {
+  padding: 1rem;
 }
 
 dialog {
-  padding-top: 3rem;
+  padding: 0;
 }
 
 dialog::backdrop {
@@ -107,8 +119,12 @@ class AttilaJS extends HTMLElement {
     this.shadowRoot.innerHTML = `
       <button aria-label="Open Attila JS" id="${mainButtonID}">A</button>
       <dialog id="${dialogID}">
-        <button id="${closeButtonID}">close</button>
-        <h1>Attila JS</h1>
+        <div class="${controlsClassName}">
+          <button id="${closeButtonID}">close</button>
+        </div>
+        <div class="${contentClassName}">
+          <h1>Attila JS</h1>
+        </div>
       </dialog>
     `;
   }
