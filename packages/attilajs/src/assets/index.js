@@ -1,3 +1,8 @@
+const tag = 'attila-js';
+const mainButtonID = 'main-button';
+const closeButtonID = 'close-button';
+const dialogID = 'main-dialog';
+
 const css = `
 :host {
   --font-size: 16px;
@@ -26,8 +31,8 @@ button {
   display: inline-block;
   background-color: var(--color-brand);
   color: var(--color-brand-text);
-  font-size: var(--font-size--l);
-  padding: var(--gap--l);
+  font-size: var(--font-size);
+  padding: var(--gap);
   box-shadow: 0 2px 0 var(--color-text);
   -webkit-font-smoothing: antialiased;
   border: 2px solid transparent;
@@ -55,12 +60,29 @@ button:focus:not(:active):not(:hover) {
   background-color: var(--color-highlighted);
   box-shadow: 0 2px 0 var(--color-text);
 }
+
+#${mainButtonID} {
+  font-size: var(--font-size--l);
+  padding: var(--gap--l);
+}
+
+#${closeButtonID} {
+  text-transform: uppercase;
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+}
+
+dialog {
+  padding-top: 3rem;
+}
+
+dialog::backdrop {
+  background-color: rgba(0, 0, 0, 0.5);
+}
 `
 
 class AttilaJS extends HTMLElement {
-  static tag = 'attila-js';
-  static mainButtonID = 'main-button';
-
   attachStyles() {
     let styles = new CSSStyleSheet();
     
@@ -77,24 +99,38 @@ class AttilaJS extends HTMLElement {
     this.attachShadow({ mode: "open" });
     this.attachStyles();
     this.render();
+    this.dialog = this.shadowRoot.querySelector(`#${dialogID}`);
     this.addEventListeners();
   }
 
   render() {
     this.shadowRoot.innerHTML = `
-      <button aria-label="Open Attila JS" id="${AttilaJS.mainButtonID}">A</button>
+      <button aria-label="Open Attila JS" id="${mainButtonID}">A</button>
+      <dialog id="${dialogID}">
+        <button id="${closeButtonID}">close</button>
+        <h1>Attila JS</h1>
+      </dialog>
     `;
   }
 
   addEventListeners() {
     this.addMainButtonEvents();
+    this.addCloseButtonEvents();
   }
 
   addMainButtonEvents() {
-    this.shadowRoot.querySelector(`#${AttilaJS.mainButtonID}`).addEventListener('click', () => {
-      this.open
+    const dialog = this.dialog;
+    this.shadowRoot.querySelector(`#${mainButtonID}`).addEventListener('click', () => {
+      dialog.showModal();
+    });
+  }
+
+  addCloseButtonEvents() {
+    const dialog = this.dialog;
+    this.shadowRoot.querySelector(`#${closeButtonID}`).addEventListener('click', () => {
+      dialog.close();
     });
   }
 }
 
-customElements.define(AttilaJS.tag, AttilaJS);
+customElements.define(tag, AttilaJS);
