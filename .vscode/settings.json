@@ -1,5 +1,12 @@
 {
   "cSpell.words": [
     "attilajs"
-  ]
+  ],
+  "stylelint.packageManager": "yarn",
+  "npm.packageManager": "yarn",
+  "search.exclude": {
+    "**/.yarn": true,
+    "**/.pnp.*": true
+  },
+  "eslint.nodePath": ".yarn/sdks"
 }

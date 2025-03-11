@@ -1,3 +1,4 @@
+const brandName = 'Attila JS';
 const tag = 'attila-js';
 const mainButtonID = 'main-button';
 const closeButtonID = 'close-button';
@@ -101,23 +102,23 @@ dialog {
 dialog::backdrop {
   background-color: rgba(0, 0, 0, 0.5);
 }
-`
+`;
 
 class AttilaJS extends HTMLElement {
   attachStyles() {
-    let styles = new CSSStyleSheet();
-    
+    const styles = new CSSStyleSheet();
+
     styles.replaceSync(css);
 
     this.shadowRoot.adoptedStyleSheets = [styles];
   }
 
   connectedCallback() {
-    if (!("replaceSync" in CSSStyleSheet.prototype) || this.shadowRoot) {
+    if (!('replaceSync' in CSSStyleSheet.prototype) || this.shadowRoot) {
       return;
     }
 
-    this.attachShadow({ mode: "open" });
+    this.attachShadow({ mode: 'open' });
     this.attachStyles();
     this.render();
     this.dialog = this.shadowRoot.querySelector(`#${dialogID}`);
@@ -126,7 +127,7 @@ class AttilaJS extends HTMLElement {
 
   render() {
     this.shadowRoot.innerHTML = `
-      <button aria-label="Open Attila JS" id="${mainButtonID}" class="${buttonPrimaryClassName}">A</button>
+      <button aria-label="${`Open ${brandName}`}" id="${mainButtonID}" class="${buttonPrimaryClassName}">A</button>
       <dialog id="${dialogID}">
         <div class="${controlsClassName}">
           <button id="${dataButtonID}">data</button>
