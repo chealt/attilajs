@@ -13,7 +13,7 @@
   },
   "homepage": "https://github.com/chealt/attilajs",
   "scripts": {
-    "postinstall": "mkdir dist",
+    "postinstall": "mkdir -p dist",
     "build": "cp -r src/assets/ dist",
     "start": "node ./src/serve.js"
   },
