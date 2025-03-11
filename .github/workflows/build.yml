@@ -1,4 +1,4 @@
-name: Lint
+name: Build
 
 on:
   push:
@@ -7,12 +7,12 @@ on:
     branches: [main]
 
 jobs:
-  lint:
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/install
-      - name: Lint
-        run: yarn lint
+      - name: Build
+        run: yarn workspace @chealt/attilajs run build
         env:
           CI: true
