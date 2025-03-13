@@ -21,7 +21,7 @@ jobs:
       # This step updates it to the current tag before publishing the package
       - name: Update version
         working-directory: packages/attilajs
-        run: sed -i '' "s/0.0.0/${{ github.ref_name }}/" dist/package.json
+        run: sed -i "s/0.0.0/${{ github.ref_name }}/" dist/package.json
       # Setup .npmrc file to publish to npm
       - uses: actions/setup-node@v4
         with:
