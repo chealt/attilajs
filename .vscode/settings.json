@@ -1,6 +1,8 @@
 {
   "cSpell.words": [
-    "attilajs"
+    "attilajs",
+    "mathieudutour",
+    "ncipollo"
   ],
   "stylelint.packageManager": "yarn",
   "npm.packageManager": "yarn",

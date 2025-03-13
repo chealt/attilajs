@@ -7,7 +7,7 @@ import { exec } from 'child_process';
 const staticMiddleware = sirv('dist', { dev: true });
 
 watch('src').on('all', () => {
-  exec('yarn build');
+  exec('yarn build:dev');
 });
 
 const port = 9876;
