@@ -2,11 +2,11 @@ const brandName = 'Attila JS';
 const tag = 'attila-js';
 const mainButtonID = 'main-button';
 const closeButtonID = 'close-button';
-const dataButtonID = 'data-button';
 const buttonPrimaryClassName = 'button--primary';
 const dialogID = 'main-dialog';
 const controlsClassName = 'controls';
 const contentClassName = 'content';
+const navClassName = 'nav-button';
 
 const css = `
 :host {
@@ -70,6 +70,10 @@ button:focus {
   box-shadow: inset 0 0 0 1px var(--color-highlighted);
 }
 
+button.active {
+  box-shadow: 0 2px 0 var(--color-highlighted);
+}
+
 button:focus:not(:active):not(:hover) {
   border-color: var(--color-highlighted);
   color: var(--color-text);
@@ -97,6 +101,8 @@ button:focus:not(:active):not(:hover) {
 
 dialog {
   padding: 0;
+  min-width: 80%;
+  min-height: 80%;
 }
 
 dialog::backdrop {
@@ -105,6 +111,8 @@ dialog::backdrop {
 `;
 
 class AttilaJS extends HTMLElement {
+  static tabs = ['site', 'data'];
+
   attachStyles() {
     const styles = new CSSStyleSheet();
 
@@ -121,7 +129,10 @@ class AttilaJS extends HTMLElement {
     this.attachShadow({ mode: 'open' });
     this.attachStyles();
     this.render();
+
     this.dialog = this.shadowRoot.querySelector(`#${dialogID}`);
+    this.activeTab = AttilaJS.tabs[0];
+
     this.addEventListeners();
   }
 
@@ -130,7 +141,7 @@ class AttilaJS extends HTMLElement {
       <button aria-label="${`Open ${brandName}`}" id="${mainButtonID}" class="${buttonPrimaryClassName}">A</button>
       <dialog id="${dialogID}">
         <div class="${controlsClassName}">
-          <button id="${dataButtonID}">data</button>
+          ${AttilaJS.tabs.map((name) => `<button id="${name}-nav" class="${navClassName}">${name}</button>`).toString().replaceAll(',', '')}
           <button id="${closeButtonID}" class="${buttonPrimaryClassName}">close</button>
         </div>
         <div class="${contentClassName}">
@@ -143,6 +154,7 @@ class AttilaJS extends HTMLElement {
   addEventListeners() {
     this.addMainButtonEvents();
     this.addCloseButtonEvents();
+    this.addNavButtonEvents();
   }
 
   addMainButtonEvents() {
@@ -157,6 +169,20 @@ class AttilaJS extends HTMLElement {
     this.shadowRoot.querySelector(`#${closeButtonID}`).addEventListener('click', () => {
       dialog.close();
     });
+  }
+
+  addNavButtonEvents() {
+    this.shadowRoot.querySelectorAll(`.${navClassName}`).forEach((element) => {
+      element.addEventListener('click', () => {
+        this.switchTab(element.id.replace('-nav', ''));
+      });
+    });
+  }
+
+  switchTab(tabID) {
+    this.activeTab = tabID;
+    this.shadowRoot.querySelectorAll(`.${navClassName}`).forEach((element) => element.classList.remove('active'));
+    this.shadowRoot.querySelector(`#${tabID}-nav`).classList.add('active');
   }
 }
 
