@@ -7,6 +7,7 @@ const dialogID = 'main-dialog';
 const controlsClassName = 'controls';
 const contentClassName = 'content';
 const navClassName = 'nav-button';
+const tabClassName = 'tab';
 
 const css = `
 :host {
@@ -108,6 +109,14 @@ dialog {
 dialog::backdrop {
   background-color: rgba(0, 0, 0, 0.5);
 }
+
+.${tabClassName} {
+  display: none;
+}
+
+.${tabClassName}.active {
+  display: block;
+}
 `;
 
 class AttilaJS extends HTMLElement {
@@ -145,7 +154,12 @@ class AttilaJS extends HTMLElement {
           <button id="${closeButtonID}" class="${buttonPrimaryClassName}">close</button>
         </div>
         <div class="${contentClassName}">
-          <h1>Attila JS</h1>
+          <div id="site" class="${tabClassName} active">
+            <h1>Site</h1>
+          </div>
+          <div id="data" class="${tabClassName}">
+            <h1>Data</h1>
+          </div>
         </div>
       </dialog>
     `;
@@ -181,8 +195,12 @@ class AttilaJS extends HTMLElement {
 
   switchTab(tabID) {
     this.activeTab = tabID;
+
     this.shadowRoot.querySelectorAll(`.${navClassName}`).forEach((element) => element.classList.remove('active'));
     this.shadowRoot.querySelector(`#${tabID}-nav`).classList.add('active');
+
+    this.shadowRoot.querySelectorAll(`.${tabClassName}`).forEach((element) => element.classList.remove('active'));
+    this.shadowRoot.querySelector(`#${tabID}`).classList.add('active');
   }
 }
 
