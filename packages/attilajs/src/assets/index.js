@@ -14,15 +14,31 @@ const css = `
   --font-size: 16px;
   --font-size--l: 1.4rem;
   --font-family: Arial;
+
+  --color-background: white;
   --color-brand: #00703c;
   --color-brand--dark: #005a30;
   --color-neutral: #f3f3f3;
   --color-highlighted: #fd0;
   --color-highlighted--neutral: darkgrey;
   --color-text: #0c0c0c;
-  --color-brand-text: #fff;
+  --color-brand-text: #ffffff;
+
   --gap: 1rem;
   --gap--l: 1.4rem;
+}
+
+@media (prefers-color-scheme: dark) {
+  :host {
+    --color-background: black;
+    --color-brand: #00703c;
+    --color-brand--dark: #005a30;
+    --color-neutral: #0c0c0c;
+    --color-highlighted: #fd0;
+    --color-highlighted--neutral: grey;
+    --color-text: #ffffff;
+    --color-brand-text: #ffffff; 
+  }
 }
 
 :host {
@@ -33,6 +49,7 @@ const css = `
   
 :host * {
   font-family: var(--font-family);
+  color: var(--color-text);
 }
 
 button {
@@ -102,12 +119,15 @@ button:focus:not(:active):not(:hover) {
 
 dialog {
   padding: 0;
-  min-width: 80%;
-  min-height: 80%;
+  min-width: 90%;
+  min-height: 90%;
+  background-color: var(--color-background);
+  border-radius: 10px;
+  border-width: 6px;
 }
 
 dialog::backdrop {
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.8);
 }
 
 .${tabClassName} {
@@ -120,7 +140,7 @@ dialog::backdrop {
 `;
 
 class AttilaJS extends HTMLElement {
-  static tabs = ['site', 'data'];
+  static tabs = ['site', 'data', 'accessibility', 'performance', 'settings'];
 
   attachStyles() {
     const styles = new CSSStyleSheet();
@@ -159,6 +179,15 @@ class AttilaJS extends HTMLElement {
           </div>
           <div id="data" class="${tabClassName}">
             <h1>Data</h1>
+          </div>
+          <div id="accessibility" class="${tabClassName}">
+            <h1>Accessibility</h1>
+          </div>
+          <div id="performance" class="${tabClassName}">
+            <h1>Performance</h1>
+          </div>
+          <div id="settings" class="${tabClassName}">
+            <h1>Settings</h1>
           </div>
         </div>
       </dialog>
